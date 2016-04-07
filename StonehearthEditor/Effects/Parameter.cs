@@ -13,17 +13,17 @@ namespace StonehearthEditor.Effects
 
       public ParameterProperty(
          string name,
-         int dimensions = 1,
+         Dimension dimension = Dimension.Scalar,
          bool optional = true,
          bool timeVarying = false)
       {
          this.name = name;
-         this.Dimensions = dimensions;
+         this.Dimension = dimension;
          this.Optional = optional;
          this.TimeVarying = timeVarying;
       }
 
-      public int Dimensions { get; private set; }
+      public Dimension Dimension { get; private set; }
       public bool Optional { get; private set; }
       public bool TimeVarying { get; private set; }
 
@@ -37,12 +37,35 @@ namespace StonehearthEditor.Effects
 
       public override PropertyValue FromJson(JToken json)
       {
-         return null;
+         return new DummyParameterPropertyValue(json);
       }
 
       public override JToken ToJson(PropertyValue value)
       {
-         return null;
+         return ((DummyParameterPropertyValue)value).Json;
+      }
+   }
+
+   public sealed class DummyParameterPropertyValue : PropertyValue
+   {
+      public JToken Json { get; set; }
+
+      public DummyParameterPropertyValue(JToken json)
+      {
+         this.Json = json;
+      }
+
+      public override bool IsValid()
+      {
+         return true;
+      }
+
+      public override bool IsMissing
+      {
+         get
+         {
+            return Json == null;
+         }
       }
    }
 }

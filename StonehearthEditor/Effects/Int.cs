@@ -54,5 +54,10 @@ namespace StonehearthEditor.Effects
       {
          get { return this.Value == null; }
       }
+
+      public override bool IsValid()
+      {
+         return true;
+      }
    }
 }

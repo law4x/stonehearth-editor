@@ -12,7 +12,7 @@ using StonehearthEditor.Effects;
 
 namespace StonehearthEditor
 {
-   public partial class EffectsEditorView : UserControl
+   public partial class EffectsEditorView : UserControl, IReloadable
    {
       private Dictionary<string, FileData[]> mFileDataMap = new Dictionary<string, FileData[]>();
       private TreeNode mSelectedNode = null;
@@ -109,7 +109,7 @@ namespace StonehearthEditor
             newTabPage.ImageIndex = 0;
             newTabPage.ToolTipText = fileData.Errors;
          }
-         FilePreview filePreview = new FilePreview(fileData);
+         FilePreview filePreview = new FilePreview(this, fileData);
          filePreview.Dock = DockStyle.Fill;
          newTabPage.Controls.Add(filePreview);
          filePreviewTabs.TabPages.Add(newTabPage);
@@ -350,6 +350,18 @@ namespace StonehearthEditor
       {
          MessageBox.Show("Info: Right click an effect in the list to clone an effect. \n" +
                          "Warning: Cloning aliases not yet supported. \n");
+      }
+
+      private void effectsBuilderView_PreviewRequested(object sender, EventArgs e)
+      {
+         // TODO
+      }
+
+      private void effectsBuilderView_SaveRequested(object sender, EventArgs e)
+      {
+         string json = effectsBuilderView.GetJsonString();
+         var desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+         File.WriteAllText(Path.Combine(desktop, "a.txt"), json);
       }
    }
 }

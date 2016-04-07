@@ -11,12 +11,18 @@ using StonehearthEditor.subViews;
 using Newtonsoft.Json.Linq;
 using StonehearthEditor.Effects;
 using StonehearthEditor.EffectsUI;
+using Newtonsoft.Json;
 
 namespace StonehearthEditor
 {
    public partial class EffectsBuilderView : UserControl
    {
       private Control editorUI;
+      private Property property;
+      private PropertyValue propertyValue;
+
+      public event EventHandler SaveRequested;
+      public event EventHandler PreviewRequested;
 
       public EffectsBuilderView()
       {
@@ -32,27 +38,51 @@ namespace StonehearthEditor
             editorUI = null;
          }
 
-         PropertyValue propertyValue = property.FromJson(json);
+         this.property = property;
+         this.propertyValue = property.FromJson(json);
          editorUI = EffectUICreator.CreateUI(property, propertyValue);
          pnlEditor.Controls.Add(editorUI);
       }
 
-      public void UpdateBuilder(TreeView treeView, TabControl filePreviewTabs, string effectType)
+      private void btnSave_Click(object sender, EventArgs e)
       {
-         switch(effectType)
+         if (!propertyValue.IsValid())
          {
-            case "cubemitter":
-               CubemitterInputView civ = new CubemitterInputView();
-               civ.ParticleFlowPanel.Controls.Add(new EffectInputView());
-               civ.EmissionFlowPanel.Controls.Add(new EffectInputView());
-               effectsBuilderPanel.Controls.Add(civ);
-               break;
-            default:
-               // do nothing
-               break;
+            MessageBox.Show("Fix errors first");
+            return;
+         }
+         EventHandler temp = SaveRequested;
+         if (temp != null)
+         {
+            temp(this, EventArgs.Empty);
          }
       }
 
+      private void btnPreview_Click(object sender, EventArgs e)
+      {
+         if (!propertyValue.IsValid())
+         {
+            MessageBox.Show("Fix errors first");
+            return;
+         }
+         EventHandler temp = PreviewRequested;
+         if (temp != null)
+         {
+            temp(this, EventArgs.Empty);
+         }
+      }
 
+      public string GetJsonString()
+      {
+         var root = GetJson();
+         JsonSerializerSettings settings = new JsonSerializerSettings();
+         settings.Formatting = Formatting.Indented;
+         return JsonConvert.SerializeObject(root, settings);
+      }
+
+      public JToken GetJson()
+      {
+         return this.property.ToJson(this.propertyValue);
+      }
    }
 }

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace StonehearthEditor.Effects
 {
-   public abstract class PropertyValue
+   public enum Dimension
    {
-      public abstract bool IsMissing { get; }
-
-      public abstract bool IsValid();
+      Scalar,
+      Rgba,
    }
 }

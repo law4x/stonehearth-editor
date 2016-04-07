@@ -13,42 +13,42 @@ namespace StonehearthEditor.Effects
          new IntProperty("duration"),
          new ComplexProperty("particle", false,
             new ComplexProperty("lifetime", true,
-               new ParameterProperty("start", 1)
+               new ParameterProperty("start", Dimension.Scalar)
             ),
             new ComplexProperty("speed", true,
-               new ParameterProperty("start", 1),
-               new ParameterProperty("over_lifetime", 1, timeVarying: true)
+               new ParameterProperty("start", Dimension.Scalar),
+               new ParameterProperty("over_lifetime", Dimension.Scalar, timeVarying: true)
             ),
             new ComplexProperty("acceleration", true,
-               new ParameterProperty("over_lifetime_x", 1, timeVarying: true),
-               new ParameterProperty("over_lifetime_y", 1, timeVarying: true),
-               new ParameterProperty("over_lifetime_z", 1, timeVarying: true)
+               new ParameterProperty("over_lifetime_x", Dimension.Scalar, timeVarying: true),
+               new ParameterProperty("over_lifetime_y", Dimension.Scalar, timeVarying: true),
+               new ParameterProperty("over_lifetime_z", Dimension.Scalar, timeVarying: true)
             ),
             new ComplexProperty("color", true,
-               new ParameterProperty("start", 4),
-               new ParameterProperty("over_lifetime_a", 1, timeVarying: true),
-               new ParameterProperty("over_lifetime_r", 1, timeVarying: true),
-               new ParameterProperty("over_lifetime_g", 1, timeVarying: true),
-               new ParameterProperty("over_lifetime_b", 1, timeVarying: true)
+               new ParameterProperty("start", Dimension.Rgba),
+               new ParameterProperty("over_lifetime_a", Dimension.Scalar, timeVarying: true),
+               new ParameterProperty("over_lifetime_r", Dimension.Scalar, timeVarying: true),
+               new ParameterProperty("over_lifetime_g", Dimension.Scalar, timeVarying: true),
+               new ParameterProperty("over_lifetime_b", Dimension.Scalar, timeVarying: true)
             ),
             new ComplexProperty("scale", true,
-               new ParameterProperty("start", 1),
-               new ParameterProperty("over_lifetime", 1, timeVarying: true)
+               new ParameterProperty("start", Dimension.Scalar),
+               new ParameterProperty("over_lifetime", Dimension.Scalar, timeVarying: true)
             ),
             new ComplexProperty("rotation", true,
-               new ParameterProperty("over_lifetime_x", 1, timeVarying: true),
-               new ParameterProperty("over_lifetime_y", 1, timeVarying: true),
-               new ParameterProperty("over_lifetime_z", 1, timeVarying: true)
+               new ParameterProperty("over_lifetime_x", Dimension.Scalar, timeVarying: true),
+               new ParameterProperty("over_lifetime_y", Dimension.Scalar, timeVarying: true),
+               new ParameterProperty("over_lifetime_z", Dimension.Scalar, timeVarying: true)
             ),
             new ComplexProperty("velocity", true,
-               new ParameterProperty("over_lifetime_x", 1, timeVarying: true),
-               new ParameterProperty("over_lifetime_y", 1, timeVarying: true),
-               new ParameterProperty("over_lifetime_z", 1, timeVarying: true)
+               new ParameterProperty("over_lifetime_x", Dimension.Scalar, timeVarying: true),
+               new ParameterProperty("over_lifetime_y", Dimension.Scalar, timeVarying: true),
+               new ParameterProperty("over_lifetime_z", Dimension.Scalar, timeVarying: true)
             )
          ),
          new ComplexProperty("emission", false,
-               new ParameterProperty("rate", 1, optional: false),
-               new ParameterProperty("angle", 1, optional: false),
+               new ParameterProperty("rate", Dimension.Scalar, optional: false),
+               new ParameterProperty("angle", Dimension.Scalar, optional: false),
                new OriginProperty("origin")
          )
        );

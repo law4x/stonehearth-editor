@@ -116,5 +116,23 @@ namespace StonehearthEditor.Effects
       {
          this.isMissing = value;
       }
+
+      public override bool IsValid()
+      {
+         foreach (var prop in this.values)
+         {
+            if (prop.Value.IsMissing)
+            {
+               continue;
+            }
+
+            if (!prop.Value.IsValid())
+            {
+               return false;
+            }
+         }
+
+         return true;
+      }
    }
 }

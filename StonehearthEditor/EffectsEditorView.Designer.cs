@@ -243,6 +243,8 @@
          this.effectsBuilderView.Name = "effectsBuilderView";
          this.effectsBuilderView.Size = new System.Drawing.Size(251, 551);
          this.effectsBuilderView.TabIndex = 1;
+         this.effectsBuilderView.SaveRequested += effectsBuilderView_SaveRequested;
+         this.effectsBuilderView.PreviewRequested += effectsBuilderView_PreviewRequested;
          // 
          // EffectsEditorView
          // 
