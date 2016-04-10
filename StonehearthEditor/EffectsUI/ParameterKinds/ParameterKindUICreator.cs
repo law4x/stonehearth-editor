@@ -12,6 +12,7 @@ namespace StonehearthEditor.EffectsUI.ParameterKinds
    {
       private static readonly IReadOnlyDictionary<Type, Type> propertyTypeToUIType = new Dictionary<Type, Type>
       {
+         // These need UI
          { typeof(ConstantRgbaParameterKind), null },
          { typeof(ConstantScalarParameterKind), null },
          { typeof(CurveScalarParameterKind), null },

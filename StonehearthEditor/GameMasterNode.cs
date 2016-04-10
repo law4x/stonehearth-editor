@@ -197,7 +197,9 @@ namespace StonehearthEditor
       {
          if (IsModified)
          {
-            try {
+            bool success = true;
+            try
+            {
                using (StreamWriter wr = new StreamWriter(mPath, false, new UTF8Encoding(false)))
                {
                   string jsonAsString = GetJsonFileString();
@@ -206,9 +208,14 @@ namespace StonehearthEditor
             }
             catch (Exception e)
             {
+               success = false;
                Console.WriteLine("Could not write to file " + mPath + " because of exception: " + e.Message);
             }
-
+            if (success)
+            {
+               // If successfully written, clear is modified flag since there are no more changes to save.
+               IsModified = false;
+            }
          }
       }
       public GameMasterNode Clone(string newFileName)

@@ -85,6 +85,15 @@ namespace StonehearthEditor
          }
       }
 
+      public void Reload()
+      {
+         GameMasterDataManager.GetInstance().ClearModifiedFlags();
+         GameMasterDataManager.GetInstance().RefreshGraph(this);
+         encounterTreeView.Refresh();
+         nodeInfoJsonPreview.Refresh();
+
+         Initialize();
+      }
 
       private void graphViewer_EdgeAdded(object sender, EventArgs e)
       {

@@ -122,6 +122,14 @@ namespace StonehearthEditor
          }
       }
 
+      public void ClearModifiedFlags()
+      {
+         foreach (GameMasterNode node in mGameMasterNodes.Values)
+         {
+            node.IsModified = false;
+         }
+      }
+
       private void SearchForFileType(string directory, string fileType, List<string> luaFilesFound)
       {
          if (!Directory.Exists(directory))
