@@ -15,7 +15,7 @@ namespace StonehearthEditor.EffectsUI
          { typeof(StringProperty), typeof(StringUI) },
          { typeof(IntProperty), typeof(IntUI) },
          { typeof(ComplexProperty), typeof(ComplexUI) },
-         { typeof(ParameterProperty), null },
+         { typeof(ParameterProperty), typeof(ParameterUI) },
          { typeof(OriginProperty), typeof(OriginUI) },
       };
 

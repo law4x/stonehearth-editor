@@ -58,7 +58,7 @@ namespace StonehearthEditor.EffectsUI
       {
          if (value == null)
          {
-            return "Missing value";
+            return "Invalid value";
          }
 
          return null;

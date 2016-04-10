@@ -25,6 +25,8 @@ namespace StonehearthEditor.Effects.ParameterKinds
          this.MaxValue = maxValue;
       }
 
+      public RandomBetweenScalarParameterKind() { }
+
       public override JToken ToJson()
       {
          JArray arr = new JArray();

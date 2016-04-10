@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using StonehearthEditor.Effects.ParameterKinds;
 
 namespace StonehearthEditor.Effects
 {
@@ -37,35 +38,57 @@ namespace StonehearthEditor.Effects
 
       public override PropertyValue FromJson(JToken json)
       {
-         return new DummyParameterPropertyValue(json);
+         if (json == null)
+         {
+            return new ParameterPropertyValue(true, null, null);
+         }
+         JObject jobj = (JObject)json;
+         string kind = (string)jobj["kind"];
+         ParameterKindOption option = ParameterKindRegistry.Get(kind, Dimension);
+         ParameterKind parameter = option.FromJson(jobj["values"]);
+         return new ParameterPropertyValue(false, option, parameter);
       }
 
       public override JToken ToJson(PropertyValue value)
       {
-         return ((DummyParameterPropertyValue)value).Json;
+         ParameterPropertyValue val = (ParameterPropertyValue)value;
+         JObject obj = new JObject();
+         obj["kind"] = val.Option.Kind;
+         obj["value"] = val.Parameter.ToJson();
+         return obj;
       }
    }
 
-   public sealed class DummyParameterPropertyValue : PropertyValue
+   public sealed class ParameterPropertyValue : PropertyValue
    {
-      public JToken Json { get; set; }
+      public ParameterKindOption Option { get; set; }
+      public ParameterKind Parameter { get; set; }
 
-      public DummyParameterPropertyValue(JToken json)
+      private bool isMissing;
+
+      public ParameterPropertyValue(bool isMissing, ParameterKindOption option, ParameterKind parameter)
       {
-         this.Json = json;
+         this.isMissing = isMissing;
+         this.Option = option;
+         this.Parameter = parameter;
       }
 
       public override bool IsValid()
       {
-         return true;
+         return Parameter == null || Parameter.IsValid;
       }
 
       public override bool IsMissing
       {
          get
          {
-            return Json == null;
+            return isMissing;
          }
+      }
+
+      public void SetIsMissing(bool isMissing)
+      {
+         this.isMissing = isMissing;
       }
    }
 }

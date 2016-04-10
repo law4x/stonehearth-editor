@@ -14,7 +14,8 @@ namespace StonehearthEditor.Effects.ParameterKinds
 
       public static ConstantScalarParameterKind FromJson(JToken json)
       {
-         return new ConstantScalarParameterKind((double)json);
+         JArray arr = (JArray)json;
+         return new ConstantScalarParameterKind((double)arr[0]);
       }
 
       public ConstantScalarParameterKind(double? value)
@@ -22,9 +23,13 @@ namespace StonehearthEditor.Effects.ParameterKinds
          this.Value = value;
       }
 
+      public ConstantScalarParameterKind() { }
+
       public override JToken ToJson()
       {
-         return this.Value;
+         JArray arr = new JArray();
+         arr.Add(this.Value);
+         return arr;
       }
 
       public override bool IsValid

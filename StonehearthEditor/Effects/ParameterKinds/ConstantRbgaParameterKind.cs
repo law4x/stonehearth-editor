@@ -29,6 +29,8 @@ namespace StonehearthEditor.Effects.ParameterKinds
          this.A = a;
       }
 
+      public ConstantRgbaParameterKind() { }
+
       public override JToken ToJson()
       {
          JArray arr = new JArray();
